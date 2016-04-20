@@ -2,6 +2,7 @@
 version: "2"
 services:
   server:
+    restart: always
     build:
       context: build/server
     ports:
@@ -11,6 +12,7 @@ services:
       - "./ssh:/var/go/.ssh"
       - "./plugins:/var/lib/go-server/plugins/external"
   agent:
+    restart: always
     build: 
       context: build/agent
     environment:
@@ -21,4 +23,5 @@ services:
     volumes:
       - "./agent/home:/var/go"
       - "./plugins:/var/lib/go-agent/plugins/external"
+      - "./ssh:/var/go/.ssh"
       - "/var/run/docker.sock:/var/run/docker.sock"
