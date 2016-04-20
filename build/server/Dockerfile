@@ -30,6 +30,7 @@ RUN dpkg -i --debug=10 /tmp/go-server.deb \
 RUN sed -i -e 's/DAEMON=Y/DAEMON=N/' /etc/default/go-server
 EXPOSE 8153 8154
 
-ADD go-server-start.sh log4j.properties /etc/service/go-server/run
+ADD go-server-start.sh /etc/service/go-server/run
+ADD log4j.properties /etc/service/go-server/
 
 CMD ["/etc/service/go-server/run"]
