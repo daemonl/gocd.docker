@@ -1,0 +1,24 @@
+
+version: "2"
+services:
+  server:
+    build:
+      context: build/server
+    ports:
+      - "8153:8153"
+    volumes:
+      - "./server/config:/etc/go"
+      - "./ssh:/var/go/.ssh"
+      - "./plugins:/var/lib/go-server/plugins/external"
+  agent:
+    build: 
+      context: build/agent
+    environment:
+      GO_SERVER: server
+      AGENT_ENVIRONMENTS: Docker
+
+    privileged: true
+    volumes:
+      - "./agent/home:/var/go"
+      - "./plugins:/var/lib/go-agent/plugins/external"
+      - "/var/run/docker.sock:/var/run/docker.sock"
